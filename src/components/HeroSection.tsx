@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Leaf, Sparkles, Recycle, Smile } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface HeroSectionProps {
   onShopNow: () => void;
@@ -28,14 +29,24 @@ const HERO_SHOWCASE = [
 
 export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow }) => {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setActiveSlide((prev) => (prev === 0 ? HERO_SHOWCASE.length - 1 : prev - 1));
-  };
+  }, []);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setActiveSlide((prev) => (prev === HERO_SHOWCASE.length - 1 ? 0 : prev + 1));
-  };
+  }, []);
+
+  // Smooth auto-advance carousel every 5.5s, pausing when user hovers
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5500);
+    return () => clearInterval(interval);
+  }, [isPaused, nextSlide]);
 
   const currentBouquet = HERO_SHOWCASE[activeSlide];
 
@@ -65,10 +76,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow }) => {
       <div className="relative w-full flex flex-col items-center">
         
         {/* Architectural Arch Background Frame */}
-        <div className="w-[320px] sm:w-[420px] md:w-[500px] lg:w-[560px] h-[520px] sm:h-[600px] md:h-[640px] lg:h-[690px] rounded-t-[160px] sm:rounded-t-[200px] lg:rounded-t-[220px] bg-[#ffdbc7]/55 absolute top-0 left-1/2 -translate-x-1/2 pointer-events-none transition-all">
+        <div className="w-[320px] sm:w-[420px] md:w-[500px] lg:w-[560px] h-[520px] sm:h-[600px] md:h-[640px] lg:h-[690px] rounded-t-[160px] sm:rounded-t-[200px] lg:rounded-t-[220px] bg-[#ffdbc7]/55 absolute top-0 left-1/2 -translate-x-1/2 pointer-events-none transition-all overflow-hidden animate-arch-pulse">
           {/* Subtle Botanical Halo Border */}
           <div className="absolute inset-x-4 sm:inset-x-8 top-8 sm:top-12 bottom-6 sm:bottom-8 rounded-t-[140px] sm:rounded-t-[190px] border border-[#33251e]/10"></div>
           
+          {/* Floating Botanical Petals drifting gently through arch */}
+          <span className="absolute bottom-16 left-1/4 w-3.5 h-3.5 rounded-full bg-rose-300/40 blur-[0.5px] animate-petal-1"></span>
+          <span className="absolute bottom-28 right-1/4 w-2.5 h-2.5 rounded-full bg-amber-300/35 blur-[0.5px] animate-petal-2"></span>
+          <span className="absolute bottom-10 left-1/2 w-3 h-3 rounded-full bg-rose-200/40 blur-[0.5px] animate-petal-3"></span>
+
           {/* Decorative SVG curves */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none opacity-40"
@@ -89,12 +105,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow }) => {
 
         {/* Headline Hierarchy */}
         <div className="relative z-10 text-center flex flex-col items-center pt-4 sm:pt-6 lg:pt-8 px-4">
-          <span className="font-headline-lg text-3xl sm:text-4xl md:text-5xl lg:text-[54px] lg:leading-[62px] italic text-[#33251e] tracking-wide font-normal">
+          <motion.span
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="font-headline-lg text-3xl sm:text-4xl md:text-5xl lg:text-[54px] lg:leading-[62px] italic text-[#33251e] tracking-wide font-normal"
+          >
             Your Floral
-          </span>
-          <h1 className="font-display-hero text-5xl sm:text-7xl md:text-8xl lg:text-[140px] xl:text-[164px] leading-[0.92] font-black text-[#33251e] tracking-[-0.035em] select-none -mt-1 sm:-mt-2">
+          </motion.span>
+          <motion.h1
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="font-display-hero text-5xl sm:text-7xl md:text-8xl lg:text-[140px] xl:text-[164px] leading-[0.92] font-black text-[#33251e] tracking-[-0.035em] select-none -mt-1 sm:-mt-2"
+          >
             Wonderland
-          </h1>
+          </motion.h1>
 
           {/* Mobile Description inside upper arch */}
           <p className="lg:hidden font-body-md text-[#4f4541] max-w-[280px] sm:max-w-md text-xs sm:text-sm mt-3 leading-relaxed">
@@ -114,9 +140,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow }) => {
             </div>
 
             {/* Feature Card 1 (Freshness Guaranteed) */}
-            <div className="p-4 rounded-[14px] bg-[#fff8f6]/95 backdrop-blur-sm border border-[#33251e]/15 max-w-[250px] shadow-[0_8px_24px_-8px_rgba(74,58,51,0.08)] transform hover:-translate-y-1 transition-transform">
+            <motion.div
+              whileHover={{ y: -6, scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+              className="p-4 rounded-[14px] bg-[#fff8f6]/95 backdrop-blur-sm border border-[#33251e]/15 max-w-[250px] shadow-[0_8px_24px_-8px_rgba(74,58,51,0.08)] cursor-default"
+            >
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-7 h-7 rounded-full bg-[#33251e] flex items-center justify-center text-white shrink-0">
+                <div className="w-7 h-7 rounded-full bg-[#33251e] flex items-center justify-center text-white shrink-0 shadow-sm">
                   <Leaf className="w-3.5 h-3.5 fill-current" />
                 </div>
                 <h3 className="font-body-md text-[#33251e] font-bold text-[14px] leading-none">
@@ -126,12 +156,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow }) => {
               <p className="font-body-sm text-[#4f4541] text-[12px] leading-[18px]">
                 Daily handpicked blooms for ultimate vitality and lasting fragrance.
               </p>
-            </div>
+            </motion.div>
 
             {/* Feature Card 2 (Sustainability Matters) */}
-            <div className="p-4 rounded-[14px] bg-[#fff8f6]/95 backdrop-blur-sm border border-[#33251e]/15 max-w-[250px] shadow-[0_8px_24px_-8px_rgba(74,58,51,0.08)] transform hover:-translate-y-1 transition-transform">
+            <motion.div
+              whileHover={{ y: -6, scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+              className="p-4 rounded-[14px] bg-[#fff8f6]/95 backdrop-blur-sm border border-[#33251e]/15 max-w-[250px] shadow-[0_8px_24px_-8px_rgba(74,58,51,0.08)] cursor-default"
+            >
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-7 h-7 rounded-full bg-[#33251e] flex items-center justify-center text-white shrink-0">
+                <div className="w-7 h-7 rounded-full bg-[#33251e] flex items-center justify-center text-white shrink-0 shadow-sm">
                   <Recycle className="w-3.5 h-3.5" />
                 </div>
                 <h3 className="font-body-md text-[#33251e] font-bold text-[14px] leading-none">
@@ -141,28 +175,43 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow }) => {
               <p className="font-body-sm text-[#4f4541] text-[12px] leading-[18px]">
                 Eco-friendly sourcing and organic craft wrap with zero single-use plastics.
               </p>
-            </div>
+            </motion.div>
           </div>
 
           {/* Center Column: Centerpiece Bouquet Showcase */}
-          <div className="lg:col-span-6 flex flex-col items-center justify-center relative my-2 lg:my-0">
+          <div
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            className="lg:col-span-6 flex flex-col items-center justify-center relative my-2 lg:my-0"
+          >
             
             {/* Bouquet Display Area */}
             <div className="relative w-[300px] sm:w-[380px] md:w-[440px] lg:w-[480px] h-[350px] sm:h-[430px] md:h-[480px] lg:h-[520px] flex items-center justify-center">
               
-              {/* Central Bouquet Image */}
-              <img
-                key={activeSlide}
-                src={currentBouquet.image}
-                alt={currentBouquet.alt}
-                className="w-full h-full object-contain filter drop-shadow-[0_24px_38px_rgba(51,37,30,0.22)] transition-all duration-500 animate-fade-in hover:scale-105"
-              />
+              {/* Central Bouquet Image with AnimatePresence & Organic Float */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeSlide}
+                  initial={{ opacity: 0, scale: 0.94, y: 15 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 1.04, y: -10 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full h-full flex items-center justify-center animate-float-slow"
+                >
+                  <img
+                    src={currentBouquet.image}
+                    alt={currentBouquet.alt}
+                    className="w-full h-full object-contain filter drop-shadow-[0_24px_38px_rgba(51,37,30,0.22)] transition-transform duration-500 hover:scale-105 select-none"
+                    draggable={false}
+                  />
+                </motion.div>
+              </AnimatePresence>
 
               {/* Mobile Prev/Next Floating Controls */}
               <button
                 onClick={prevSlide}
                 aria-label="Previous arrangement"
-                className="lg:hidden absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 text-[#33251e] border border-[#33251e]/15 flex items-center justify-center shadow-sm"
+                className="lg:hidden absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 text-[#33251e] border border-[#33251e]/15 flex items-center justify-center shadow-sm active:scale-95 transition-transform"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -170,7 +219,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow }) => {
               <button
                 onClick={nextSlide}
                 aria-label="Next arrangement"
-                className="lg:hidden absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 text-[#33251e] border border-[#33251e]/15 flex items-center justify-center shadow-sm"
+                className="lg:hidden absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 text-[#33251e] border border-[#33251e]/15 flex items-center justify-center shadow-sm active:scale-95 transition-transform"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -183,9 +232,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow }) => {
                 <button
                   key={idx}
                   onClick={() => setActiveSlide(idx)}
-                  className={`transition-all rounded-full cursor-pointer ${
+                  className={`transition-all duration-300 rounded-full cursor-pointer ${
                     activeSlide === idx
-                      ? 'w-7 h-2 bg-[#33251e]'
+                      ? 'w-8 h-2 bg-[#33251e] shadow-sm'
                       : 'w-2 h-2 bg-[#33251e]/25 hover:bg-[#33251e]/50'
                   }`}
                   aria-label={`Show ${item.title}`}
@@ -196,18 +245,29 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow }) => {
 
             {/* FIXED POSITION: Shop Now Pill Button resting precisely at the bottom base of the arch */}
             <div className="mt-4 sm:mt-6 z-30 flex flex-col items-center">
-              <button
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={onShopNow}
-                className="inline-flex items-center justify-center px-10 sm:px-12 py-3.5 sm:py-4 bg-white text-[#33251e] border border-[#33251e]/35 rounded-full font-label-sm text-xs sm:text-[13px] uppercase tracking-[0.18em] font-bold shadow-[0_8px_20px_rgba(51,37,30,0.12)] hover:bg-[#33251e] hover:text-white hover:border-[#33251e] hover:shadow-xl transition-all duration-300 focus:outline-none cursor-pointer group scale-100 hover:scale-105"
+                className="inline-flex items-center justify-center px-10 sm:px-12 py-3.5 sm:py-4 bg-white text-[#33251e] border border-[#33251e]/35 rounded-full font-label-sm text-xs sm:text-[13px] uppercase tracking-[0.18em] font-bold shadow-[0_8px_20px_rgba(51,37,30,0.12)] hover:bg-[#33251e] hover:text-white hover:border-[#33251e] hover:shadow-xl transition-all duration-300 focus:outline-none cursor-pointer group"
               >
                 <span>Shop Now</span>
                 <span className="ml-2.5 group-hover:translate-x-1.5 transition-transform duration-200">→</span>
-              </button>
+              </motion.button>
 
-              {/* Discreet Active Bouquet Title */}
-              <span className="text-[11px] text-[#4f4541]/80 font-semibold tracking-wider mt-2 uppercase">
-                {currentBouquet.title}
-              </span>
+              {/* Discreet Active Bouquet Title with smooth text transition */}
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={currentBouquet.title}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-[11px] text-[#4f4541]/80 font-semibold tracking-wider mt-2 uppercase"
+                >
+                  {currentBouquet.title}
+                </motion.span>
+              </AnimatePresence>
             </div>
 
           </div>
@@ -221,9 +281,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow }) => {
             </div>
 
             {/* Feature Card 3 (Artistic Arrangements) */}
-            <div className="p-4 rounded-[14px] bg-[#fff8f6]/95 backdrop-blur-sm border border-[#33251e]/15 max-w-[250px] text-left shadow-[0_8px_24px_-8px_rgba(74,58,51,0.08)] transform hover:-translate-y-1 transition-transform">
+            <motion.div
+              whileHover={{ y: -6, scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+              className="p-4 rounded-[14px] bg-[#fff8f6]/95 backdrop-blur-sm border border-[#33251e]/15 max-w-[250px] text-left shadow-[0_8px_24px_-8px_rgba(74,58,51,0.08)] cursor-default"
+            >
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-7 h-7 rounded-full bg-[#33251e] flex items-center justify-center text-white shrink-0">
+                <div className="w-7 h-7 rounded-full bg-[#33251e] flex items-center justify-center text-white shrink-0 shadow-sm">
                   <Sparkles className="w-3.5 h-3.5" />
                 </div>
                 <h3 className="font-body-md text-[#33251e] font-bold text-[14px] leading-none">
@@ -233,12 +297,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow }) => {
               <p className="font-body-sm text-[#4f4541] text-[12px] leading-[18px]">
                 Unique artisanal designs crafted with passion by master botanical stylists.
               </p>
-            </div>
+            </motion.div>
 
             {/* Feature Card 4 (Customer Delight) */}
-            <div className="p-4 rounded-[14px] bg-[#fff8f6]/95 backdrop-blur-sm border border-[#33251e]/15 max-w-[250px] text-left shadow-[0_8px_24px_-8px_rgba(74,58,51,0.08)] transform hover:-translate-y-1 transition-transform">
+            <motion.div
+              whileHover={{ y: -6, scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+              className="p-4 rounded-[14px] bg-[#fff8f6]/95 backdrop-blur-sm border border-[#33251e]/15 max-w-[250px] text-left shadow-[0_8px_24px_-8px_rgba(74,58,51,0.08)] cursor-default"
+            >
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-7 h-7 rounded-full bg-[#33251e] flex items-center justify-center text-white shrink-0">
+                <div className="w-7 h-7 rounded-full bg-[#33251e] flex items-center justify-center text-white shrink-0 shadow-sm">
                   <Smile className="w-3.5 h-3.5" />
                 </div>
                 <h3 className="font-body-md text-[#33251e] font-bold text-[14px] leading-none">
@@ -248,7 +316,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow }) => {
               <p className="font-body-sm text-[#4f4541] text-[12px] leading-[18px]">
                 Unmatched care and dedicated flower concierge for all intimate gatherings.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
 

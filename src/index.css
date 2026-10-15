@@ -116,14 +116,72 @@
   to { transform: translateX(0); }
 }
 
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(0.8deg);
+  }
+}
+
+@keyframes archPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.01);
+    opacity: 0.7;
+  }
+}
+
+@keyframes petalDrift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.45;
+  }
+  75% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate(30px, -70px) rotate(60deg);
+    opacity: 0;
+  }
+}
+
 .animate-fade-in {
-  animation: fadeIn 0.25s ease-out forwards;
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: scaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-slide-left {
-  animation: slideLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideLeft 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-float-slow {
+  animation: floatSlow 5.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-arch-pulse {
+  animation: archPulse 6s ease-in-out infinite;
+}
+
+.animate-petal-1 {
+  animation: petalDrift 7s ease-in-out infinite;
+}
+
+.animate-petal-2 {
+  animation: petalDrift 9s ease-in-out infinite 2.5s;
+}
+
+.animate-petal-3 {
+  animation: petalDrift 11s ease-in-out infinite 5s;
 }

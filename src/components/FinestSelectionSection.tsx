@@ -1,6 +1,7 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
 import { Product } from '../types';
+import { motion } from 'motion/react';
 
 interface FinestSelectionSectionProps {
   products: Product[];
@@ -62,9 +63,11 @@ export const FinestSelectionSection: React.FC<FinestSelectionSectionProps> = ({
           const isStaggered = index % 2 === 0; // Staggered vertical translation on desktop
 
           return (
-            <div
+            <motion.div
               key={item.id}
-              className={`w-full flex flex-col items-center group transition-transform ${
+              whileHover={{ y: -8 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              className={`w-full flex flex-col items-center group ${
                 isStaggered ? 'lg:translate-y-8' : ''
               }`}
             >
@@ -131,7 +134,7 @@ export const FinestSelectionSection: React.FC<FinestSelectionSectionProps> = ({
                   {formatPrice(item)}
                 </p>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ShoppingBag } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { FlowerVarietyCategory, Product } from '../types';
 
 interface FlowerVarietySectionProps {
@@ -179,12 +180,19 @@ export const FlowerVarietySection: React.FC<FlowerVarietySectionProps> = ({
         <div className="lg:col-span-7 flex justify-center lg:justify-end">
           <div className="w-[300px] sm:w-[420px] md:w-[480px] lg:w-[520px] h-[340px] sm:h-[420px] lg:h-[480px] rounded-t-[140px] sm:rounded-t-[180px] lg:rounded-t-[200px] rounded-b-3xl bg-[#ffdbc7]/70 relative flex items-end justify-center border border-[#33251e]/10 overflow-hidden lg:overflow-visible transition-all">
             
-            {/* Overflowing Bouquet in Hand Image */}
-            <img
-              src={activeVariety.image}
-              alt={activeVariety.headline}
-              className="h-[360px] sm:h-[460px] lg:h-[540px] w-auto max-w-none object-cover transform lg:translate-x-10 lg:-translate-y-4 filter drop-shadow-xl transition-all duration-500 group-hover:scale-102"
-            />
+            {/* Overflowing Bouquet in Hand Image with smooth AnimatePresence transition */}
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={selectedCategory}
+                src={activeVariety.image}
+                alt={activeVariety.headline}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 1.02 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="h-[360px] sm:h-[460px] lg:h-[540px] w-auto max-w-none object-cover transform lg:translate-x-10 lg:-translate-y-4 filter drop-shadow-xl"
+              />
+            </AnimatePresence>
           </div>
         </div>
       </div>
