@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-primary: #33251e;
+  --color-primary-container: #4a3a33;
+  --color-on-primary: #ffffff;
+  --color-secondary: #8d4e20;
+  --color-secondary-container: #feab75;
+  --color-secondary-fixed: #ffdbc7;
+  --color-secondary-fixed-dim: #ffb688;
+  --color-surface: #fff8f6;
+  --color-surface-dim: #e8d6cf;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #fff1eb;
+  --color-surface-container: #fceae2;
+  --color-surface-container-high: #f7e5dd;
+  --color-surface-container-highest: #f1dfd7;
+  --color-on-surface: #231a15;
+  --color-on-surface-variant: #4f4541;
+  --color-crimson-accent: #CE2D4F;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-on-surface);
+    background-color: #EBE7E2;
+  }
+  
+  h1, h2, h3, .font-serif-display {
+    font-family: var(--font-serif);
+  }
+}
+
+.font-display-hero {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-headline-lg {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-headline-md {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-headline-sm {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-title-editorial {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-body-md {
+  font-family: 'DM Sans', sans-serif;
+}
+
+.font-body-sm {
+  font-family: 'DM Sans', sans-serif;
+}
+
+.font-label-caps {
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.12em;
+}
+
+.font-label-sm {
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f7e5dd;
+}
+::-webkit-scrollbar-thumb {
+  background: #d9c2b8;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8d4e20;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideLeft {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-left {
+  animation: slideLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
