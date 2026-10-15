@@ -26,7 +26,7 @@ export const AboutModal: React.FC<AboutModalProps> = ({ isOpen, onClose }) => {
             The Atelier Story
           </span>
           <h2 className="font-headline-lg text-3xl sm:text-4xl font-bold text-[#33251e] mb-4">
-            Flora Sea.
+            Floral Sea.
           </h2>
           <p className="font-body-md text-sm text-[#4f4541] leading-relaxed mb-6">
             An artisanal botanical atelier weaving haute-couture floral poetry for refined spaces, intimate occasions, and mindful daily rituals.

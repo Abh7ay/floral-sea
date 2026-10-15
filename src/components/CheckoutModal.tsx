@@ -65,7 +65,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         <div className="p-5 sm:p-6 border-b border-[#33251e]/10 flex items-center justify-between bg-[#ffdbc7]/30">
           <div>
             <span className="font-label-caps text-[10px] uppercase tracking-widest text-[#8d4e20] font-bold">
-              Flora Sea Checkout
+              Floral Sea Checkout
             </span>
             <h3 className="font-headline-sm text-xl font-bold text-[#33251e]">
               {step === 'form' ? 'Atelier Dispatch Details' : 'Botanical Order Confirmed'}
@@ -212,7 +212,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               onClick={onClose}
               className="w-full py-3 bg-[#33251e] text-white rounded-full text-xs uppercase font-bold tracking-wider hover:bg-[#8d4e20] transition-colors"
             >
-              Return to Flora Sea
+              Return to Floral Sea
             </button>
           </div>
         )}

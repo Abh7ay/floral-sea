@@ -195,7 +195,7 @@ export default function App() {
                 onShopNow={() => {
                   setAppliedDiscount(10);
                   handleNavigateToCatalog('All');
-                  showToast('10% First Bouquet Discount code FLORASEA10 active!');
+                  showToast('10% First Bouquet Discount code FLORALSEA10 active!');
                 }}
               />
 

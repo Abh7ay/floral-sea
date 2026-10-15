@@ -43,11 +43,11 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={() => onNavigate('home')}
               className="flex items-center gap-2 group text-left focus:outline-none"
-              title="Flora Sea Atelier"
+              title="Floral Sea Atelier"
             >
               <img
                 src="https://lh3.googleusercontent.com/aida/AEtjO1UrzJkGuELRtcnOegGU-qdJFZueHTEEClrWdSQdjWayDUL0u34WCsL5zKfAWsHYnpVpnvs6mGsA5DLw8FVLHRmBHItvIR3mVtXLIYRMtkrAYxyd0qkvGiJdQx8fqmgDWgQYWLBFQ6TuBARWlFAdOkwRKdA2EHQGUa6F1M6mMsTVnt3phpZ53WXhZiwbIEVZr0VlgFXUgLZpKP4CuReEfzUz7_373D7vIVyXAGanmivCyxqy7gl_z4wJUA"
-                alt="Flora Sea Wordmark"
+                alt="Floral Sea Wordmark"
                 className="h-7 w-auto object-contain transition-opacity group-hover:opacity-80"
                 onError={(e) => {
                   (e.target as HTMLElement).style.display = 'none';
@@ -79,14 +79,14 @@ export const Header: React.FC<HeaderProps> = ({
             </nav>
           </div>
 
-          {/* Center: Delicate Flora Sea. Serif wordmark */}
+          {/* Center: Delicate Floral Sea. Serif wordmark */}
           <button
             onClick={() => onNavigate('home')}
             className="flex items-center justify-center gap-2 sm:gap-4 group focus:outline-none"
           >
             <span className="w-4 sm:w-8 h-[1px] bg-[#33251e]/20 transition-all group-hover:w-10"></span>
             <span className="font-headline-sm text-xl sm:text-2xl font-bold text-[#33251e] tracking-tight group-hover:text-[#8d4e20] transition-colors">
-              Flora Sea.
+              Floral Sea.
             </span>
             <span className="w-4 sm:w-8 h-[1px] bg-[#33251e]/20 transition-all group-hover:w-10"></span>
           </button>
@@ -116,7 +116,7 @@ export const Header: React.FC<HeaderProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               title="Follow @florasea.co on Instagram"
-              aria-label="Flora Sea Instagram"
+              aria-label="Floral Sea Instagram"
               className="hidden sm:flex p-1.5 text-[#33251e] hover:text-[#CE2D4F] transition-colors"
             >
               <Instagram className="w-5 h-5 stroke-[1.8]" />
@@ -155,7 +155,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="fixed inset-y-0 left-0 w-[82%] max-w-sm bg-[#fff8f6] shadow-2xl p-6 flex flex-col justify-between border-r border-[#33251e]/15">
             <div>
               <div className="flex items-center justify-between pb-6 border-b border-[#33251e]/10">
-                <span className="font-headline-sm text-2xl font-bold text-[#33251e]">Flora Sea.</span>
+                <span className="font-headline-sm text-2xl font-bold text-[#33251e]">Floral Sea.</span>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
                   className="p-1 rounded-full text-[#33251e] hover:bg-[#fceae2]"

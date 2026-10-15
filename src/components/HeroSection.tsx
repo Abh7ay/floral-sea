@@ -98,7 +98,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow }) => {
 
           {/* Mobile Description inside upper arch */}
           <p className="lg:hidden font-body-md text-[#4f4541] max-w-[280px] sm:max-w-md text-xs sm:text-sm mt-3 leading-relaxed">
-            Discover Flora Sea, where the artistry of flowers blends seamlessly with heartfelt emotion.
+            Discover Floral Sea, where the artistry of flowers blends seamlessly with heartfelt emotion.
           </p>
         </div>
 
@@ -109,7 +109,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onShopNow }) => {
           <div className="hidden lg:flex lg:col-span-3 flex-col justify-between h-[520px] py-4">
             <div className="pl-2">
               <p className="font-body-md text-[#4f4541] max-w-[240px] leading-relaxed text-sm">
-                Discover Flora Sea, where the artistry of flowers blends seamlessly with heartfelt emotion.
+                Discover Floral Sea, where the artistry of flowers blends seamlessly with heartfelt emotion.
               </p>
             </div>
 

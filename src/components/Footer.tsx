@@ -29,7 +29,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateToCategory, onOpenAbou
           {/* Brand Col */}
           <div className="md:col-span-5 pr-4 sm:pr-8">
             <h3 className="font-headline-md text-2xl md:text-3xl font-bold text-[#33251e] mb-2">
-              Flora Sea.
+              Floral Sea.
             </h3>
             <p className="font-body-md text-xs sm:text-sm text-[#4f4541] max-w-sm mb-4 leading-relaxed">
               An artisanal botanical atelier weaving haute-couture floral poetry for refined spaces, intimate occasions, and mindful daily ritual.
@@ -117,7 +117,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateToCategory, onOpenAbou
 
         {/* Bottom Sub-strip */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-label-caps text-[11px] text-[#4f4541]">
-          <p>© 2025 Flora Sea Atelier. Crafted with quiet botanical reverence.</p>
+          <p>© 2025 Floral Sea Atelier. Crafted with quiet botanical reverence.</p>
           
           <div className="flex items-center gap-4 sm:gap-6">
             <button onClick={onOpenAbout} className="hover:text-[#33251e] transition-colors">
